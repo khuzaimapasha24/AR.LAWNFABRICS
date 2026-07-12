@@ -1,65 +1,42 @@
 'use client';
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial, Float, Environment, Sparkles } from '@react-three/drei';
-import * as THREE from 'three';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from './HeroScene.module.css';
 
-function FabricPiece({ position, color, scale, speed }) {
-  const ref = useRef();
-  useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.rotation.x = Math.sin(state.clock.elapsedTime * speed * 0.3) * 0.3;
-    ref.current.rotation.y = state.clock.elapsedTime * speed * 0.15;
-    ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed * 0.5) * 0.3;
-  });
-
-  return (
-    <Float speed={speed} rotationIntensity={0.4} floatIntensity={1.5}>
-      <mesh ref={ref} position={position} scale={scale}>
-        <planeGeometry args={[4, 4, 32, 32]} />
-        <MeshDistortMaterial
-          color={color}
-          distort={0.35}
-          speed={2}
-          roughness={0.15}
-          metalness={0.6}
-          transparent
-          opacity={0.85}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-function Scene() {
-  return (
-    <>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[10, 10, 5]} intensity={1.2} color="#FFF5F0" />
-      <directionalLight position={[-5, -5, 5]} intensity={0.4} color="#FFD1D1" />
-      <pointLight position={[0, 5, 5]} intensity={0.5} color="#B76E79" />
-
-      <FabricPiece position={[-2.5, 0.5, 0]} color="#B76E79" scale={1.2} speed={1.5} />
-      <FabricPiece position={[2.5, -0.5, -1]} color="#D4A0A7" scale={1} speed={1.8} />
-      <FabricPiece position={[0, 0, -2]} color="#C9A96E" scale={0.8} speed={1.2} />
-
-      <Sparkles count={80} scale={12} size={1.5} speed={0.3} color="#B76E79" opacity={0.4} />
-
-      <Environment preset="city" />
-    </>
-  );
-}
+const images = [
+  'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=80',
+  'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1600&q=80',
+  'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80'
+];
 
 export default function HeroScene() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className={styles.hero}>
-      <div className={styles.canvas}>
-        <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]}>
-          <Scene />
-        </Canvas>
-      </div>
+      {/* Background Image Slider */}
+      {images.map((img, index) => (
+        <div 
+          key={index} 
+          className={`${styles.imageWrap} ${index === currentIndex ? styles.active : ''}`}
+        >
+          <Image 
+            src={img} 
+            alt="Hero Background" 
+            fill 
+            priority={index === 0}
+            className={styles.image} 
+          />
+          <div className={styles.overlay}></div>
+        </div>
+      ))}
 
       <div className={styles.content}>
         <span className={styles.label}>Summer Collection 2024</span>

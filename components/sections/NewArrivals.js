@@ -1,21 +1,27 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '../ui/ScrollReveal';
 import styles from './NewArrivals.module.css';
 
-const items = [
-  { id: '10', title: 'Pastel Dream Lawn', brand: 'Maria B', price: 9800, img: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80' },
-  { id: '11', title: 'Midnight Chiffon', brand: 'Elan', price: 16500, img: 'https://images.unsplash.com/photo-1589465885857-44edb59bbff2?w=600&q=80' },
-  { id: '12', title: 'Ivory Embroidered', brand: 'Sana Safinaz', price: 11200, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80' },
-  { id: '13', title: 'Cotton Luxe Pret', brand: 'Sapphire', price: 4500, img: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=600&q=80' },
-  { id: '14', title: 'Velvet Noir Edit', brand: 'Gul Ahmed', price: 19500, img: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80' },
-  { id: '15', title: 'Festive Silk Dupatta', brand: 'Khaadi', price: 7200, img: 'https://images.unsplash.com/photo-1589465885857-44edb59bbff2?w=600&q=80' },
-];
-
 export default function NewArrivals() {
   const scrollRef = useRef(null);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        if(Array.isArray(data)) setItems(data.reverse().slice(0, 6)); // Reverse for new arrivals
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   const scroll = (dir) => {
     if (scrollRef.current) {
@@ -40,10 +46,12 @@ export default function NewArrivals() {
         </ScrollReveal>
 
         <div className={styles.carousel} ref={scrollRef}>
-          {items.map((item, i) => (
+          {loading ? (
+             <div style={{padding: '2rem', color: '#888'}}>Loading new arrivals...</div>
+          ) : items.map((item, i) => (
             <Link href={`/product/${item.id}`} key={item.id} className={styles.card}>
               <div className={styles.imgWrap}>
-                <Image src={item.img} alt={item.title} fill sizes="300px" className={styles.img} />
+                <Image src={item.images || item.img} alt={item.title} fill sizes="300px" className={styles.img} />
                 <span className={styles.newBadge}>New</span>
               </div>
               <div className={styles.info}>

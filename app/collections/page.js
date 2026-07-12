@@ -1,21 +1,10 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import styles from './page.module.css';
-
-const products = [
-  { id: '1', title: 'Embroidered Lawn Suit', brand: 'Sana Safinaz', price: 8500, img: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=600&q=80', category: 'Lawn' },
-  { id: '2', title: 'Luxury Chiffon Collection', brand: 'Maria B', price: 15500, img: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80', category: 'Chiffon' },
-  { id: '3', title: 'Printed Cambric Dress', brand: 'Khaadi', price: 4200, img: 'https://images.unsplash.com/photo-1589465885857-44edb59bbff2?w=600&q=80', category: 'Pret' },
-  { id: '4', title: 'Festive Velvet Edit', brand: 'Gul Ahmed', price: 12000, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80', category: 'Bridal' },
-  { id: '5', title: 'Bridal Couture Set', brand: 'Elan', price: 45000, img: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80', category: 'Bridal' },
-  { id: '6', title: 'Casual Pret Kurta', brand: 'Sapphire', price: 3500, img: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=600&q=80', category: 'Pret' },
-  { id: '7', title: 'Digital Print Lawn', brand: 'Alkaram', price: 5800, img: 'https://images.unsplash.com/photo-1589465885857-44edb59bbff2?w=600&q=80', category: 'Lawn' },
-  { id: '8', title: 'Silk Dupatta Set', brand: 'Nishat Linen', price: 7200, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80', category: 'Chiffon' },
-];
 
 export default function CollectionsPage() {
   const searchParams = useSearchParams();
@@ -25,9 +14,25 @@ export default function CollectionsPage() {
   const [activeBrand, setActiveBrand] = useState('All');
   const [activePrice, setActivePrice] = useState('All');
   const [sortBy, setSortBy] = useState('Featured');
+  
+  const [dbProducts, setDbProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        if(Array.isArray(data)) setDbProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    let result = [...dbProducts];
 
     if (query) {
       const q = query.toLowerCase();
@@ -112,11 +117,13 @@ export default function CollectionsPage() {
             </select>
           </div>
           <div className={styles.grid}>
-            {filteredProducts.length > 0 ? filteredProducts.map((p, i) => (
+            {loading ? (
+              <div className={styles.loading}>Loading exclusive products...</div>
+            ) : filteredProducts.length > 0 ? filteredProducts.map((p, i) => (
               <ScrollReveal key={p.id} delay={i * 80}>
                 <Link href={`/product/${p.id}`} className={styles.card}>
                   <div className={styles.imgWrap}>
-                    <Image src={p.img} alt={p.title} fill sizes="(max-width:768px) 50vw, 25vw" className={styles.img} />
+                    <Image src={p.images || p.img} alt={p.title} fill sizes="(max-width:768px) 50vw, 25vw" className={styles.img} />
                     <div className={styles.quickView}>Quick View</div>
                   </div>
                   <div className={styles.info}>

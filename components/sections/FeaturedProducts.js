@@ -1,39 +1,25 @@
+'use client';
+import { useState, useEffect } from 'react';
 import ProductCard from '../ui/ProductCard';
 import styles from './FeaturedProducts.module.css';
 
-// Placeholder mock data
-const products = [
-  {
-    id: '1',
-    title: 'Embroidered Lawn Suit',
-    brand: 'Sana Safinaz',
-    price: 8500,
-    image: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '2',
-    title: 'Luxury Chiffon Collection',
-    brand: 'Maria B',
-    price: 15500,
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '3',
-    title: 'Printed Cambric Dress',
-    brand: 'Khaadi',
-    price: 4200,
-    image: 'https://images.unsplash.com/photo-1583391733958-620ed75f1828?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: '4',
-    title: 'Festive Velvet Edit',
-    brand: 'Gul Ahmed',
-    price: 12000,
-    image: 'https://images.unsplash.com/photo-1589465885857-44edb59bbff2?auto=format&fit=crop&q=80&w=800'
-  }
-];
-
 export default function FeaturedProducts() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        if(Array.isArray(data)) setProducts(data.slice(0, 4)); // Get 4 for featured
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -43,8 +29,10 @@ export default function FeaturedProducts() {
         </div>
         
         <div className={styles.grid}>
-          {products.map(product => (
-            <ProductCard key={product.id} {...product} />
+          {loading ? (
+             <div style={{padding: '2rem', color: '#888'}}>Loading featured products...</div>
+          ) : products.map(product => (
+            <ProductCard key={product.id} id={product.id} title={product.title} brand={product.brand} price={product.price} image={product.images || product.image || 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77'} />
           ))}
         </div>
       </div>

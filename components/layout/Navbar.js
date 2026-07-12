@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
 import styles from './Navbar.module.css';
 
 const categories = [
@@ -20,6 +21,11 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const { totalItems } = useCart();
+  
+  // Hydration fix for Cart Badge
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -109,7 +115,7 @@ export default function Navbar() {
             </Link>
             <Link href="/cart" className={styles.iconBtn} aria-label="Cart">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              <span className={styles.cartBadge}>0</span>
+              {mounted && totalItems > 0 && <span className={styles.cartBadge}>{totalItems}</span>}
             </Link>
           </div>
         </div>

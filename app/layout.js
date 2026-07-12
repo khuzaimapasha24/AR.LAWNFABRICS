@@ -6,6 +6,7 @@ import FloatingContact from '@/components/layout/FloatingContact';
 import BackToTop from '@/components/layout/BackToTop';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import CursorFollower from '@/components/ui/CursorFollower';
+import { CartProvider } from '@/context/CartContext';
 
 export const metadata = {
   title: 'AR.LAWN — Luxury Fabrics & Premium Brands',
@@ -16,14 +17,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <LoadingScreen />
-        <CursorFollower />
-        <AnnouncementBar />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <FloatingContact />
-        <BackToTop />
+        <CartProvider>
+          <LoadingScreen />
+          <CursorFollower />
+          <AnnouncementBar />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <FloatingContact />
+          <BackToTop />
+        </CartProvider>
       </body>
     </html>
   );
