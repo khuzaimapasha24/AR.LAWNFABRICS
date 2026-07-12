@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 
@@ -17,6 +18,17 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(null); // 'collections' | 'brands' | null
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/collections?q=${encodeURIComponent(searchQuery)}`);
+      setSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -106,10 +118,20 @@ export default function Navbar() {
       {/* Search Overlay */}
       {searchOpen && (
         <div className={styles.searchOverlay} onClick={() => setSearchOpen(false)}>
-          <div className={styles.searchBox} onClick={(e) => e.stopPropagation()}>
-            <input type="text" placeholder="Search collections, brands..." className={styles.searchInput} autoFocus />
-            <button className={styles.searchClose} onClick={() => setSearchOpen(false)}>✕</button>
-          </div>
+          <form className={styles.searchBox} onClick={(e) => e.stopPropagation()} onSubmit={handleSearch}>
+            <input 
+              type="text" 
+              placeholder="Search collections, brands..." 
+              className={styles.searchInput} 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus 
+            />
+            <button type="submit" className={styles.searchSubmit} aria-label="Submit search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <button type="button" className={styles.searchClose} onClick={() => setSearchOpen(false)}>✕</button>
+          </form>
         </div>
       )}
 

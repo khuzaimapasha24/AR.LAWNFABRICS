@@ -211,6 +211,7 @@
   background: var(--bg-primary);
   border-radius: 12px;
   padding: 0.5rem;
+  position: relative;
   display: flex;
   align-items: center;
   width: 90%;
@@ -219,16 +220,33 @@
   animation: slideDown 0.4s var(--ease-out-expo);
 }
 .searchInput {
-  flex: 1;
-  padding: 1rem 1.5rem;
+  width: 100%;
+  padding: 1.5rem 3rem 1.5rem 1.5rem;
   border: none;
-  font-size: 1.1rem;
-  background: none;
+  background: var(--bg-primary);
   color: var(--text-primary);
+  font-size: 1.2rem;
+  border-radius: 8px;
+}
+.searchSubmit {
+  position: absolute;
+  right: 3.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-rosegold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.searchSubmit:hover {
+  transform: translateY(-50%) translateX(3px);
 }
 .searchClose {
-  padding: 1rem;
-  font-size: 1.2rem;
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--text-muted);
   transition: color 0.3s ease;
 }

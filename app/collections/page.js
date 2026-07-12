@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ui/ScrollReveal';
@@ -17,6 +18,9 @@ const products = [
 ];
 
 export default function CollectionsPage() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('q') || '';
+
   const [activeCategory, setActiveCategory] = useState('All');
   const [activeBrand, setActiveBrand] = useState('All');
   const [activePrice, setActivePrice] = useState('All');
@@ -24,6 +28,11 @@ export default function CollectionsPage() {
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
+
+    if (query) {
+      const q = query.toLowerCase();
+      result = result.filter(p => p.title.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
+    }
 
     if (activeCategory !== 'All') {
       result = result.filter(p => p.category === activeCategory);
@@ -89,6 +98,11 @@ export default function CollectionsPage() {
           ))}
         </div>
         <div className={styles.productsArea}>
+          {query && (
+            <div className={styles.searchResultHeader}>
+              Showing results for: <strong>"{query}"</strong>
+            </div>
+          )}
           <div className={styles.topBar}>
             <span className={styles.count}>{filteredProducts.length} Products</span>
             <select className={styles.sort} value={sortBy} onChange={(e) => setSortBy(e.target.value)}>

@@ -1,11 +1,59 @@
 .section { padding: var(--section-pad) 0; background: var(--bg-cream); }
 .container { max-width: var(--container-max); margin: 0 auto; padding: 0 2rem; }
-.header { text-align: center; margin-bottom: 3.5rem; }
-.header .sectionSubtitle { margin: 0 auto; }
+.header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-end; 
+  margin-bottom: 3.5rem; 
+}
+.headerText { text-align: left; }
+.headerText .sectionSubtitle { margin: 0; max-width: 400px; }
 
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.navButtons {
+  display: flex;
+  gap: 1rem;
+}
+.navBtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background: transparent;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.navBtn:hover {
+  border-color: var(--accent-rosegold);
+  color: var(--accent-rosegold);
+  background: rgba(255,51,102,0.05);
+}
 
-.card { display: block; transition: transform 0.3s var(--ease-out-expo); }
+.sliderContainer {
+  margin: 0 -2rem; /* bleed edges */
+  padding: 0 2rem;
+}
+
+.sliderTrack {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  padding-bottom: 2rem;
+}
+.sliderTrack::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.card {
+  display: block;
+  flex: 0 0 calc(25% - 1.5rem);
+  scroll-snap-align: start;
+  transition: transform 0.3s var(--ease-out-expo);
+}
 .card:hover { transform: translateY(-6px); }
 
 .imgWrap {
@@ -48,5 +96,13 @@
 }
 .price { color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; }
 
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .grid { gap: 1rem; } }
+@media (max-width: 1024px) {
+  .card { flex: 0 0 calc(33.333% - 1.3rem); }
+}
+@media (max-width: 768px) {
+  .header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .card { flex: 0 0 calc(50% - 1rem); }
+}
+@media (max-width: 480px) {
+  .card { flex: 0 0 85%; }
+}

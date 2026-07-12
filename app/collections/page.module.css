@@ -45,6 +45,14 @@
 }
 .clearBtn:hover { background: var(--accent-rosegold); }
 
+.searchResultHeader {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
 /* Products */
 .topBar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
 .count { font-size: 0.85rem; color: var(--text-muted); }
