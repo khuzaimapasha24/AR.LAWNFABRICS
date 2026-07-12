@@ -2,7 +2,18 @@
 .container { max-width: var(--container-max); margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
 
 .badge { text-align: center; padding: 1.5rem; }
-.icon { font-size: 2rem; display: block; margin-bottom: 1rem; }
+.iconWrap {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1.2rem;
+  background-color: var(--bg-beige);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.icon { font-size: 2.2rem; display: block; line-height: 1; margin-top: 2px; }
 .title { font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
 .desc { font-size: 0.8rem; color: var(--text-muted); }
 
