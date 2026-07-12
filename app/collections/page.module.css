@@ -27,6 +27,23 @@
   border-bottom: 1px solid var(--border-light);
 }
 .filterBtn:hover { color: var(--accent-rosegold); }
+.activeFilter { color: var(--accent-rosegold); font-weight: 600; }
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-cream);
+  border-radius: 12px;
+}
+.noResults h3 { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 0.5rem; }
+.noResults p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+.clearBtn {
+  padding: 0.8rem 1.5rem; background: var(--text-primary); color: white;
+  text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;
+  border-radius: 4px; transition: background 0.3s ease;
+}
+.clearBtn:hover { background: var(--accent-rosegold); }
 
 /* Products */
 .topBar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
