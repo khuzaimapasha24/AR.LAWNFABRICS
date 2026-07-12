@@ -25,24 +25,10 @@ export default function BestSellers() {
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = 300; 
-      const currentScroll = scrollRef.current.scrollLeft;
-      const maxScroll = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
-
-      if (direction === 'right' && currentScroll >= maxScroll - 10) {
-        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' }); // loop back
-      } else {
-        scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-      }
+      const scrollAmount = scrollRef.current.clientWidth * 0.8; // Scroll by 80% of view
+      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      scroll('right');
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className={styles.section}>

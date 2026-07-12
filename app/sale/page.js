@@ -1,17 +1,33 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import styles from './page.module.css';
 
-const saleItems = [
-  { id: '20', title: 'Summer Lawn Clearance', brand: 'Gul Ahmed', price: 3200, oldPrice: 6500, img: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=600&q=80' },
-  { id: '21', title: 'Printed Chiffon Set', brand: 'Maria B', price: 8900, oldPrice: 15500, img: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80' },
-  { id: '22', title: 'Cotton Pret Kurta', brand: 'Sapphire', price: 1800, oldPrice: 3500, img: 'https://images.unsplash.com/photo-1589465885857-44edb59bbff2?w=600&q=80' },
-  { id: '23', title: 'Embroidered Suit', brand: 'Khaadi', price: 4500, oldPrice: 8500, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80' },
-];
-
 export default function SalePage() {
+  const [saleItems, setSaleItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          // Add dummy oldPrice for sale effect if none exists
+          const withSale = data.slice(0, 8).map(p => ({
+            ...p,
+            oldPrice: p.salePrice || Math.round(p.price * 1.4)
+          }));
+          setSaleItems(withSale);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
@@ -21,11 +37,13 @@ export default function SalePage() {
       </div>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {saleItems.map((p, i) => (
+          {loading ? (
+             <div style={{padding: '2rem', color: '#888'}}>Loading sale items...</div>
+          ) : saleItems.map((p, i) => (
             <ScrollReveal key={p.id} delay={i * 80}>
               <Link href={`/product/${p.id}`} className={styles.card}>
                 <div className={styles.imgWrap}>
-                  <Image src={p.img} alt={p.title} fill sizes="(max-width:768px) 50vw, 25vw" className={styles.img} />
+                  <Image src={p.images || p.img || 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77'} alt={p.title} fill sizes="(max-width:768px) 50vw, 25vw" className={styles.img} />
                   <span className={styles.discount}>{Math.round((1 - p.price / p.oldPrice) * 100)}% OFF</span>
                 </div>
                 <div className={styles.info}>

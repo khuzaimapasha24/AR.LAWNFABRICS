@@ -3,10 +3,11 @@ import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import styles from './page.module.css';
 
-export default function CollectionsPage() {
+function CollectionsContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
 
@@ -144,5 +145,13 @@ export default function CollectionsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CollectionsPage() {
+  return (
+    <Suspense fallback={<div className={styles.loading}>Loading Collections...</div>}>
+      <CollectionsContent />
+    </Suspense>
   );
 }
