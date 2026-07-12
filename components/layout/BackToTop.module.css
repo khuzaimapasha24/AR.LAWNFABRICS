@@ -1,0 +1,20 @@
+.btn {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  z-index: 999;
+  opacity: 0; visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s var(--ease-out-expo);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.btn:hover { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+@media (max-width: 768px) { .btn { bottom: 80px; right: 16px; } }

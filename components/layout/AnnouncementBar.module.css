@@ -1,0 +1,23 @@
+.bar {
+  background-color: var(--text-primary);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.track {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.text {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--bg-cream);
+  text-transform: uppercase;
+  padding-right: 3rem;
+}

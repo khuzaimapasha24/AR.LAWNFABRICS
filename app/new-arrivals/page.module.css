@@ -1,0 +1,17 @@
+.page { padding-top: 108px; min-height: 100vh; background: var(--bg-primary); }
+.hero { text-align: center; padding: 4rem 2rem; background: var(--bg-cream); border-bottom: 1px solid var(--border-light); }
+.heroTitle { font-family: var(--font-serif); font-size: 3rem; margin-bottom: 0.8rem; }
+.heroSub { color: var(--text-secondary); font-weight: 300; }
+.container { max-width: var(--container-max); margin: 0 auto; padding: 4rem 2rem; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.card { display: block; transition: transform 0.3s var(--ease-out-expo); }
+.card:hover { transform: translateY(-6px); }
+.imgWrap { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: 10px; overflow: hidden; background: var(--bg-cream); }
+.img { object-fit: cover; transition: transform 0.5s var(--ease-out-expo); }
+.card:hover .img { transform: scale(1.05); }
+.badge { position: absolute; top: 12px; left: 12px; background: var(--accent-rosegold); color: white; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 20px; }
+.info { padding: 1rem 0.3rem 0; }
+.brand { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-rosegold); display: block; margin-bottom: 0.3rem; }
+.name { font-family: var(--font-serif); font-size: 1rem; margin-bottom: 0.3rem; }
+.price { color: var(--text-secondary); font-size: 0.9rem; }
+@media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }

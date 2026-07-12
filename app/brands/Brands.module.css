@@ -1,0 +1,96 @@
+.page {
+  padding-top: 100px;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.header {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.brandCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.brandCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(183, 110, 121, 0.1);
+  border-color: var(--accent-rosegold);
+}
+
+.logoPlaceholder {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 2rem;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: var(--accent-rosegold);
+  border: 1px solid var(--border-color);
+}
+
+.brandName {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.brandDesc {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.exploreBtn {
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.brandCard:hover .exploreBtn {
+  color: var(--accent-rosegold);
+  border-bottom-color: var(--accent-rosegold);
+}

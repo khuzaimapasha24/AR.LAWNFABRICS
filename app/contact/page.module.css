@@ -1,0 +1,22 @@
+.page { padding-top: 108px; min-height: 100vh; background: var(--bg-primary); }
+.hero { text-align: center; padding: 4rem 2rem; background: var(--bg-cream); border-bottom: 1px solid var(--border-light); }
+.heroTitle { font-family: var(--font-serif); font-size: 3rem; margin-bottom: 0.8rem; }
+.heroSub { color: var(--text-secondary); font-weight: 300; }
+.container { max-width: 1000px; margin: 0 auto; padding: 5rem 2rem; }
+.grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
+.infoCard { background: var(--bg-cream); padding: 2.5rem; border-radius: 12px; }
+.infoCard h3 { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 2rem; }
+.infoItem { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; }
+.infoIcon { font-size: 1.3rem; }
+.infoItem p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.2rem; }
+.socialRow { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-light); }
+.socialLink { font-size: 0.85rem; color: var(--text-secondary); transition: color 0.3s ease; }
+.socialLink:hover { color: var(--accent-rosegold); }
+.form { background: var(--bg-cream); padding: 2.5rem; border-radius: 12px; }
+.form h3 { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 2rem; }
+.input, .textarea { display: block; width: 100%; padding: 1rem; border: 1px solid var(--border-light); border-radius: 6px; margin-bottom: 1rem; background: var(--bg-primary); font-size: 0.9rem; }
+.input:focus, .textarea:focus { border-color: var(--accent-rosegold); }
+.textarea { resize: vertical; }
+.submitBtn { width: 100%; padding: 1rem; background: var(--text-primary); color: white; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; border-radius: 6px; transition: background 0.3s ease; }
+.submitBtn:hover { background: var(--accent-rosegold); }
+@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }

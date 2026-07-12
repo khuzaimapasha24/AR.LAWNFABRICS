@@ -1,0 +1,41 @@
+.section { padding: var(--section-pad) 0; background: var(--bg-primary); }
+.container { max-width: 700px; margin: 0 auto; padding: 0 2rem; text-align: center; }
+.header { margin-bottom: 3rem; }
+
+.carousel { position: relative; min-height: 250px; }
+.card {
+  position: absolute; width: 100%; left: 0;
+  opacity: 0; transform: translateY(20px);
+  transition: all 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  background: var(--bg-cream);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+}
+.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.text {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+.author { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent-rosegold); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif); font-size: 1.2rem;
+}
+.name { display: block; font-weight: 600; font-size: 0.9rem; }
+.loc { font-size: 0.8rem; color: var(--text-muted); }
+
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: 2rem; }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border-light); transition: all 0.3s ease;
+}
+.dotActive { background: var(--accent-rosegold); width: 24px; border-radius: 4px; }

@@ -1,0 +1,6 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M30 10 L45 40 L15 40 Z" stroke="#B76E79" stroke-width="2" fill="none"/>
+  <path d="M40 10 L55 40 L25 40 Z" stroke="#B76E79" stroke-width="1" fill="none" opacity="0.5"/>
+  <text x="65" y="38" fill="#1A1A1A" font-family="'Playfair Display', serif" font-size="24" font-weight="600" letter-spacing="2">AR.LAWN</text>
+  <text x="66" y="52" fill="#5C5C5C" font-family="'Inter', sans-serif" font-size="9" letter-spacing="4">LUXURY FABRICS</text>
+</svg>

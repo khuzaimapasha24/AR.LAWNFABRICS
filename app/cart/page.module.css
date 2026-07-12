@@ -1,0 +1,10 @@
+.page { padding-top: 108px; min-height: 100vh; background: var(--bg-primary); }
+.hero { text-align: center; padding: 3rem 2rem; background: var(--bg-cream); border-bottom: 1px solid var(--border-light); }
+.heroTitle { font-family: var(--font-serif); font-size: 2.5rem; }
+.container { max-width: var(--container-max); margin: 0 auto; padding: 6rem 2rem; }
+.empty { text-align: center; }
+.emptyIcon { font-size: 4rem; display: block; margin-bottom: 1.5rem; }
+.emptyTitle { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.8rem; }
+.emptyText { color: var(--text-secondary); margin-bottom: 2rem; }
+.shopBtn { display: inline-block; padding: 1rem 2.5rem; background: var(--text-primary); color: white; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; border-radius: 4px; transition: background 0.3s ease; }
+.shopBtn:hover { background: var(--accent-rosegold); }
