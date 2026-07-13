@@ -11,10 +11,15 @@ function CollectionsContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
 
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [activeBrand, setActiveBrand] = useState('All');
+  const [activeCategory, setActiveCategory] = useState(searchParams.get('c') || 'All');
+  const [activeBrand, setActiveBrand] = useState(searchParams.get('b') || 'All');
   const [activePrice, setActivePrice] = useState('All');
   const [sortBy, setSortBy] = useState('Featured');
+
+  useEffect(() => {
+    setActiveCategory(searchParams.get('c') || 'All');
+    setActiveBrand(searchParams.get('b') || 'All');
+  }, [searchParams]);
   
   const [dbProducts, setDbProducts] = useState([]);
   const [loading, setLoading] = useState(true);

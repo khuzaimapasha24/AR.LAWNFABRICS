@@ -6,10 +6,10 @@ import { useCart } from '@/context/CartContext';
 import styles from './Navbar.module.css';
 
 const categories = [
-  { name: 'Lawn Collection', href: '/collections', desc: 'Premium printed & embroidered lawn suits' },
-  { name: 'Chiffon & Silk', href: '/collections', desc: 'Luxury formal & party wear' },
-  { name: 'Bridal Couture', href: '/collections', desc: 'Exquisite wedding collections' },
-  { name: 'Ready to Wear', href: '/collections', desc: 'Trendy pret & stitched wear' },
+  { name: 'Lawn Collection', href: '/collections?c=Lawn', desc: 'Premium printed & embroidered lawn suits' },
+  { name: 'Chiffon & Silk', href: '/collections?c=Chiffon', desc: 'Luxury formal & party wear' },
+  { name: 'Bridal Couture', href: '/collections?c=Bridal', desc: 'Exquisite wedding collections' },
+  { name: 'Ready to Wear', href: '/collections?c=Pret', desc: 'Trendy pret & stitched wear' },
 ];
 
 const brands = ['Sana Safinaz', 'Maria B', 'Gul Ahmed', 'Khaadi', 'Elan', 'Sapphire'];
@@ -94,7 +94,7 @@ export default function Navbar() {
                 <div className={styles.megaMenu}>
                   <div className={styles.megaBrandsList}>
                     {brands.map((b, i) => (
-                      <Link href="/brands" key={i} className={styles.megaBrandLink}>{b}</Link>
+                      <Link href={`/collections?b=${encodeURIComponent(b)}`} key={i} className={styles.megaBrandLink}>{b}</Link>
                     ))}
                   </div>
                 </div>
